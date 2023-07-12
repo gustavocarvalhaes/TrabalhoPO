@@ -1,51 +1,55 @@
 #include <iostream>
 #include <glpk.h>
 
-int main()
-{
-    std::cout << "Oi Pancinha !!" << std::endl;
-
+int main() {
     glp_prob *lp;
     lp = glp_create_prob();
 
-    glp_set_obj_dir(lp, GLP_MAX);
+    // Definir a direção da otimização (MIN)
+    glp_set_obj_dir(lp, GLP_MIN);
 
-    int numVars = 2; // número de variáveis de decisão
+    // Adicionar as variáveis de decisão
+    int numVars = 12; // uma variável para cada mês
     glp_add_cols(lp, numVars);
-    for (int i = 1; i <= numVars; i++)
-    {
+    for (int i = 1; i <= numVars; i++) {
         // Definir limites inferiores e superiores para as variáveis
         glp_set_col_bnds(lp, i, GLP_LO, 0.0, 0.0); // limite inferior = 0, limite superior = 0 (sem restrição)
-        // Definir coeficientes da função objetivo
-        glp_set_obj_coef(lp, i, 1.0); // coeficiente da variável na função objetivo
+        // Definir coeficientes da função objetivo (custo de manter estoque)
+        glp_set_obj_coef(lp, i, 8.0); // custo de manter estoque por tapete por mês = $8.00
     }
 
-    int numConstraints = 2; // número de restrições
-    glp_add_rows(lp, numConstraints);
-    for (int i = 1; i <= numConstraints; i++)
-    {
-        // Definir limites inferiores e superiores para as restrições
-        glp_set_row_bnds(lp, i, GLP_UP, 0.0, 10.0); // limite inferior = 0, limite superior = 10
+    // Adicionar a restrição do estoque final
+    glp_add_rows(lp, 1);
+    glp_set_row_bnds(lp, 1, GLP_FX, 0.0, 0.0); // estoque final igual a zero
+
+    // Definir a matriz das restrições (tapetes produzidos por mês)
+    int *ia = new int[numVars + 1];
+    int *ja = new int[numVars + 1];
+    double *ar = new double[numVars + 1];
+    for (int i = 1; i <= numVars; i++) {
+        ia[i] = 1;
+        ja[i] = i;
+        ar[i] = 1.0;
+    }
+    glp_set_mat_row(lp, 1, numVars, ja, ar);
+
+    // Resolver o problema
+    glp_simplex(lp, NULL);
+
+    // Verificar o status da solução
+    int status = glp_get_status(lp);
+    if (status == GLP_OPT) {
+        double custoTotal = glp_get_obj_val(lp);
+        std::cout << "Custo total: $" << custoTotal << std::endl;
+    } else {
+        std::cout << "Não foi encontrada uma solução ótima." << std::endl;
     }
 
-    // Definir coeficientes da matriz das restrições
-    int ia[3] = {1, 1, 2};                     // índices das linhas
-    int ja[3] = {1, 2, 2};                     // índices das colunas
-    double ar[3] = {1.0, 1.0, 1.0};            // valores dos coeficientes
-    glp_set_mat_row(lp, 1, 2, ja, ar);         // atribuir a primeira linha da matriz das restrições
-    glp_set_mat_row(lp, 2, 2, ja + 1, ar + 1); // atribuir a segunda linha da matriz das restrições
-
-    glp_simplex(lp, NULL); // ou glp_intopt(lp, NULL) para programação inteira mista
-
-    double z = glp_get_obj_val(lp); // obter o valor ótimo da função objetivo
-    for (int i = 1; i <= numVars; i++)
-    {
-        double x = glp_get_col_prim(lp, i); // obter o valor ótimo da variável de decisão i
-        // faça algo com os valores obtidos (ex.: imprimir)
-        
-    }
-
-    glp_delete_prob(lp); // liberar o objeto de problema
+    // Liberar recursos
+    glp_delete_prob(lp);
+    delete[] ia;
+    delete[] ja;
+    delete[] ar;
 
     return 0;
 }
