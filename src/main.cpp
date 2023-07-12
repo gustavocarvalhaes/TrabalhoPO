@@ -1,6 +1,9 @@
 #include <iostream>
 #include <glpk.h>
 #include <fstream>
+#include "planejamento.h"
+#include <vector>
+
 /*
     -Para compilar use:
     g++ main.cpp -o trabalhopo -lglpk
@@ -16,18 +19,27 @@ struct Problema {
     int NumConstraints;
 };
 
-int main(int argc, char **argv)
-{
 
-    if (argc != 2)
+int main(int argc, char const *argv[]){
+    // Verificando os parâmetros do programa
+    if (argc != 3) 
     {
-        cout << "Usage: " << argv[0] << " <input_file>" << std::endl;
-        return -1;
+        cout << "ERRO: Esperado: ./<nome_Programa> <arquivoDeEntrada> <arquivoDeSaida>" << endl;
+        return 1;
     }
-    string input_file = argv[1];
 
+    ifstream arquivoEntrada;
+    ofstream arquivoSaida;
 
-    solveGlpk(readFile(input_file));
+    arquivoEntrada.open(argv[1], ios::in);
+    arquivoSaida.open(argv[2], ios::out | ios::app);
+    Planejamento* planejamento = new Planejamento(arquivoEntrada);
+
+    int resultado = new int[planejamento->getNumEncomendas()];
+
+    planejamento->solveGlpk(arquivoSaida);
+
+    // solveGlpk(readFile(input_file));
 
     return 0;
 }
