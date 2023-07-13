@@ -15,7 +15,7 @@ friend class Planejamento;
         int id;
         float custoMaterial;
         float valorDeVenda;
-        int tempoDeFabricacao;
+        double tempoDeFabricacao;
         
     public:
         //Destrutor

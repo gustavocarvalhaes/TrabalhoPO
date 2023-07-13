@@ -97,51 +97,43 @@ vector<double> Planejamento::solveGlpk()
     glp_prob *lp;
     lp = glp_create_prob();
 
-     glp_set_obj_dir(lp, GLP_MAX); // maximizar
+    glp_set_obj_dir(lp, GLP_MAX); // maximizar
     // Definir as variáveis
     glp_add_cols(lp, 10); // declara o número de variáveis
 
     // declara todas as variáveis
-    // declara todas as variáveis
     glp_set_col_name(lp, 1, "x1");
-    glp_set_col_kind(lp, 1, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 1, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 1, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 2, "x2");
-    glp_set_col_kind(lp, 2, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 2, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 2, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 3, "x3");
-    glp_set_col_kind(lp, 3, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 3, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 3, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 4, "x4");
-    glp_set_col_kind(lp, 4, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 4, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 4, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 5, "x5");
-    glp_set_col_kind(lp, 5, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 5, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 5, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 6, "x6");
-    glp_set_col_kind(lp, 6, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 6, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 6, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 7, "x7");
-    glp_set_col_kind(lp, 7, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 7, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 7, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 8, "x8");
-    glp_set_col_kind(lp, 8, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 8, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 8, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 9, "x9");
-    glp_set_col_kind(lp, 9, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 9, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 9, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
     glp_set_col_name(lp, 10, "x10");
-    glp_set_col_kind(lp, 10, GLP_BV);           // Variável binária
+    glp_set_col_kind(lp, 10, GLP_IV);           // Variável binária
     glp_set_col_bnds(lp, 10, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
 
     int tam = 10;
-    // for (int i = 0; i < tam; i++)
-    // {
-    //     glp_set_col_name(lp, i + 1, "x" + to_string(i + 1));
-    //     glp_set_col_kind(lp, i + 1, GLP_BV);           // Variável binária
-    //     glp_set_col_bnds(lp, i + 1, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    // }
-
     // definindo os coeficientes para valorDeVenda
     double coef = 0.0;
     for (int i = 1; i <= tam; i++)
@@ -166,13 +158,6 @@ vector<double> Planejamento::solveGlpk()
     int ind[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     // Definir os coeficientes das variáveis na restrição
-    // double val[10]; // Coeficientes das variáveis
-    // for (int i = 1; i <= 10; i++)
-    // {
-    //     val[i - 1] = encomendas[i - 1]->tempoDeFabricacao;
-    // }
-
-    // Definir os coeficientes das variáveis na restrição
     double val[11]; // Coeficientes das variáveis
     for (int i = 1; i <= 10; i++)
     {
@@ -193,52 +178,6 @@ vector<double> Planejamento::solveGlpk()
         resultados.push_back(glp_get_col_prim(lp, i));
     }
     resultados.push_back(objetivo); // coloca a objetivo no final do vector
-
-    /*
-    // declara todas as variáveis
-    glp_set_col_name(lp, 1, "x1");
-    glp_set_col_kind(lp, 1, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 1, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 2, "x2");
-    glp_set_col_kind(lp, 2, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 2, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 3, "x3");
-    glp_set_col_kind(lp, 3, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 3, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 4, "x4");
-    glp_set_col_kind(lp, 4, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 4, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 5, "x5");
-    glp_set_col_kind(lp, 5, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 5, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 6, "x6");
-    glp_set_col_kind(lp, 6, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 6, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 7, "x7");
-    glp_set_col_kind(lp, 7, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 7, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 8, "x8");
-    glp_set_col_kind(lp, 8, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 8, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 9, "x9");
-    glp_set_col_kind(lp, 9, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 9, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    glp_set_col_name(lp, 10, "x10");
-    glp_set_col_kind(lp, 10, GLP_BV);           // Variável binária
-    glp_set_col_bnds(lp, 10, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-
-    */
-
-    // glp_set_obj_coef(lp, 2, encomendas[1]->valorDeVenda);
-    // glp_set_obj_coef(lp, 3, encomendas[2]->valorDeVenda);
-    // glp_set_obj_coef(lp, 4, encomendas[3]->valorDeVenda);
-    // glp_set_obj_coef(lp, 5, encomendas[4]->valorDeVenda);
-    // glp_set_obj_coef(lp, 6, encomendas[5]->valorDeVenda);
-    // glp_set_obj_coef(lp, 7, encomendas[6]->valorDeVenda);
-    // glp_set_obj_coef(lp, 8, encomendas[7]->valorDeVenda);
-    // glp_set_obj_coef(lp, 9, encomendas[8]->valorDeVenda);
-    // glp_set_obj_coef(lp, 10, encomendas[9]->valorDeVenda);
-    // glp_set_obj_coef(lp, 10, encomendas[10]->valorDeVenda);
 
     return resultados;
 }

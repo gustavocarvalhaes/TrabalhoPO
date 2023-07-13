@@ -14,7 +14,7 @@ class Planejamento
         Encomenda* primeiraEncomenda;
         Encomenda* ultimaEncomenda;
         int numEncomendas;
-        int diasDeTrabalho;
+        double diasDeTrabalho;
 
     public:
         //Leitura somente para o trabalho
