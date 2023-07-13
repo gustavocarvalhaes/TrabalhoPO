@@ -1,96 +1,36 @@
 ==============================================
 Solução ótima para a base de dados apresentada
-Valor da função objetivo: 3000
+Valor da função objetivo: 0
 Valores das variáveis de decisão x
 x1: 0
-x2: 0
-x3: 0
-x4: 0
-x5: 0
-x6: 0
-x7: 0
-x8: 0
-x9: 0
-x10: 0
-==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 3000
-Valores das variáveis de decisão x
-x1: 0
-x2: 0
-x3: 0
-x4: 0
-x5: 0
-x6: 0
-x7: 0
-x8: 0
-x9: 0
-x10: 0
 ==============================================
 ==============================================
 Solução ótima para a base de dados apresentada
 Valor da função objetivo: 0
 Valores das variáveis de decisão x
 x1: 0
-x2: 0
-x3: 0
-x4: 0
-x5: 0
-x6: 0
-x7: 0
-x8: 0
-x9: 0
-x10: 0
 ==============================================
 ==============================================
 Solução ótima para a base de dados apresentada
 Valor da função objetivo: 0
 Valores das variáveis de decisão x
 x1: 0
-x2: 0
-x3: 0
-x4: 0
-x5: 0
-x6: 0
-x7: 0
-x8: 0
-x9: 0
-x10: 0
 ==============================================
 ==============================================
 Solução ótima para a base de dados apresentada
 Valor da função objetivo: 0
 Valores das variáveis de decisão x
 x1: 0
-x2: 0
-x3: 0
-x4: 0
-x5: 0
-x6: 0
-x7: 0
-x8: 0
-x9: 0
-x10: 0
 ==============================================
 ==============================================
 Solução ótima para a base de dados apresentada
-Valor da função objetivo: 1
+Valor da função objetivo: 0
 Valores das variáveis de decisão x
 x1: 0
-x2: 0
-x3: 0
-x4: 0
-x5: 0
-x6: 0
-x7: 0
-x8: 0
-x9: 0
-x10: 0
 ==============================================
 ==============================================
 Solução ótima para a base de dados apresentada
-Valor da função objetivo: 1
+Valor da função objetivo: 0
 Valores das variáveis de decisão x
 x1: 0
 ==============================================
@@ -110,83 +50,8 @@ x3: 0
 x4: 1
 x5: 0
 x6: 1
-x7: 0
-x8: 0.5
-x9: 0
-x10: 0
-==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 8650
-Valores das variáveis de decisão x
-x1: 1
-x2: 1
-x3: 0
-x4: 1
-x5: 0
-x6: 1
-x7: 0
-x8: 0.5
-x9: 0
-x10: 0
-==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 8650
-Valores das variáveis de decisão x
-x1: 1
-x2: 1
-x3: 0
-x4: 1
-x5: 0
-x6: 1
-x7: 0
-x8: 0.5
-x9: 0
-x10: 0
-==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 8650
-Valores das variáveis de decisão x
-x1: 1
-x2: 1
-x3: 0
-x4: 1
-x5: 0
-x6: 1
-x7: 0
-x8: 0.5
-x9: 0
-x10: 0
-==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 8650
-Valores das variáveis de decisão x
-x1: 1
-x2: 1
-x3: 0
-x4: 1
-x5: 0
-x6: 1
-x7: 0
-x8: 0.5
-x9: 0
-x10: 0
-==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 8650
-Valores das variáveis de decisão x
-x1: 1
-x2: 1
-x3: 0
-x4: 1
-x5: 0
-x6: 1
-x7: 0
-x8: 0.5
+x7: 1
+x8: 0
 x9: 0
 x10: 0
 ==============================================
