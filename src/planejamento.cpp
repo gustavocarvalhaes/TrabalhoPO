@@ -21,7 +21,6 @@ Planejamento::Planejamento(ifstream &arquivoEntrada)
         return;
     }
 
- 
     int diasDeTrabalho;
     int numEncomendas;
     int tempoDeFabricacao;
@@ -39,19 +38,26 @@ Planejamento::Planejamento(ifstream &arquivoEntrada)
     int encomendasVagas;
     encomendasVagas = 10 - numEncomendas;
 
-    while (arquivoEntrada >> leitor >> tempoDeFabricacao >> custoMateriais >> valorDeVenda)
-    {
-        this->insereEncomenda(i, tempoDeFabricacao, custoMateriais, valorDeVenda);
-        i++;
-    }
+    // while (arquivoEntrada >> tempoDeFabricacao >> custoMateriais >> valorDeVenda)
+    // {
+    //     this->insereEncomenda(i, tempoDeFabricacao, custoMateriais, valorDeVenda);
+    //     i++;
+    // }
 
-    for (int i; i < encomendasVagas; i++)
+    for (int i = 0; i < numEncomendas; i++)
+    {
+        arquivoEntrada >> tempoDeFabricacao >> custoMateriais >> valorDeVenda;
+        this->insereEncomenda(i + 1, tempoDeFabricacao, custoMateriais, valorDeVenda);
+    }
+    
+    for (int i = numEncomendas + 1; i <= 10; i++)
     {
         this->insereEncomenda(i, 0, 0, 0);
     }
-    int j=0;
-    for(Encomenda* encomenda = this->primeiraEncomenda; encomenda!=nullptr; encomenda=encomenda->getProxEncomenda()){
-        cout << "Encomenda: " << j+1 << " " << encomenda->tempoDeFabricacao << " " << encomenda->custoMaterial << " " << encomenda->valorDeVenda << endl;
+    int j = 0;
+    for (Encomenda *encomenda = this->primeiraEncomenda; encomenda != nullptr; encomenda = encomenda->getProxEncomenda())
+    {
+        cout << "Encomenda: " << j + 1 << " " << encomenda->tempoDeFabricacao << " " << encomenda->custoMaterial << " " << encomenda->valorDeVenda << endl;
         j++;
     }
 }
@@ -81,7 +87,7 @@ vector<double> Planejamento::solveGlpk()
     Encomenda *encomenda = this->primeiraEncomenda;
 
     // colocando as encomendas em um vector para facilitar a manipulação dos dados
-    while (encomenda->proximaEncomenda != nullptr)
+    while (encomenda != nullptr)
     {
         encomendas.push_back(encomenda);
         encomenda = encomenda->proximaEncomenda;
@@ -126,8 +132,8 @@ vector<double> Planejamento::solveGlpk()
     glp_set_col_name(lp, 10, "x10");
     glp_set_col_kind(lp, 10, GLP_BV);           // Variável binária
     glp_set_col_bnds(lp, 10, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    
-     int tam = 10;
+
+    int tam = 10;
     // for (int i = 0; i < tam; i++)
     // {
     //     glp_set_col_name(lp, i + 1, "x" + to_string(i + 1));
@@ -136,18 +142,19 @@ vector<double> Planejamento::solveGlpk()
     // }
 
     // definindo os coeficientes para valorDeVenda
-    for (int i = 0; i < tam; i++)
+    double coef = 0.0;
+    for (int i = 1; i <= tam; i++)
     {
-        glp_set_obj_coef(lp, i, encomendas[i]->valorDeVenda);
+        coef = encomendas[i-1]->valorDeVenda - encomendas[i-1]->custoMaterial;
+        glp_set_obj_coef(lp, i, coef);
     }
 
     // definindo os coeficientes de custoMaterial
-    for (int i = 0; i < tam; i++)
-    {
-        glp_set_obj_coef(lp, i, -encomendas[i]->custoMaterial);
-    }
-
-    // Adicionar as restrições
+    // for (int i = 0; i < tam; i++)
+    // {
+    //     glp_set_obj_coef(lp, i, -encomendas[i]->custoMaterial);
+    // }
+    // // Adicionar as restrições
     glp_add_rows(lp, 1); // Apenas uma restrição
     glp_set_row_name(lp, 1, "restricao1");
 
@@ -155,15 +162,23 @@ vector<double> Planejamento::solveGlpk()
     glp_set_row_bnds(lp, 1, GLP_UP, 0.0, this->diasDeTrabalho); // Limite superior é o número de dias previstos para trabalhar
 
     // Índices das variáveis envolvidas
-    int ind[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; 
+    int ind[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     // Definir os coeficientes das variáveis na restrição
-    double val[10]; // Coeficientes das variáveis
-    for(int i = 1; i <= 10;i++){
-        val[i-1]= encomendas[i-1]->tempoDeFabricacao;
+    // double val[10]; // Coeficientes das variáveis
+    // for (int i = 1; i <= 10; i++)
+    // {
+    //     val[i - 1] = encomendas[i - 1]->tempoDeFabricacao;
+    // }
+
+    // Definir os coeficientes das variáveis na restrição
+    double val[11]; // Coeficientes das variáveis
+    for (int i = 1; i <= 10; i++)
+    {
+        val[i] = encomendas[i - 1]->tempoDeFabricacao;
     }
+    
     glp_set_mat_row(lp, 1, 10, ind, val);
-   
     // otimizar o problema
     glp_simplex(lp, NULL);
 

@@ -34,7 +34,6 @@ int main(int argc, char const *argv[]){
     arquivoEntrada.open(argv[1], ios::in);
     arquivoSaida.open(argv[2], ios::out | ios::app);
     Planejamento* planejamento = new Planejamento(arquivoEntrada);
-
     vector<double> resultado = planejamento->solveGlpk();
 
     // solveGlpk(readFile(input_file));
