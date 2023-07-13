@@ -6,9 +6,9 @@
 
 /*
     -Para compilar use:
-    g++ main.cpp -o trabalhopo -lglpk
+    g++ main.cpp -o <nome_Programa> -lglpk
     -Para executar use:
-    ./trabalhopo <input_file>
+    ./<nome_Programa> <arquivoDeEntrada> <arquivoDeSaida>
 */
 
 using namespace std;
