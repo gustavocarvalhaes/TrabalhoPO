@@ -1,5 +1,5 @@
 #include <glpk.h>
-#include <planejamento.h>
+#include "planejamento.h"
 #include <vector>
 #include <iostream>
 
@@ -21,18 +21,7 @@ Planejamento::Planejamento(ifstream &arquivoEntrada)
         return;
     }
 
-    // inicializando todas as variáveis com 0
-    this->x1 = 0;
-    this->x2 = 0;
-    this->x3 = 0;
-    this->x4 = 0;
-    this->x5 = 0;
-    this->x6 = 0;
-    this->x7 = 0;
-    this->x8 = 0;
-    this->x9 = 0;
-    this->x10 = 0;
-
+ 
     int diasDeTrabalho;
     int numEncomendas;
     int tempoDeFabricacao;
@@ -101,13 +90,45 @@ vector<double> Planejamento::solveGlpk()
     glp_add_cols(lp, 10); // declara o número de variáveis
 
     // declara todas as variáveis
-    int tam = 10;
-    for (int i = 0; i < tam; i++)
-    {
-        glp_set_col_name(lp, i + 1, "x" + to_string(i + 1));
-        glp_set_col_kind(lp, i + 1, GLP_BV);           // Variável binária
-        glp_set_col_bnds(lp, i + 1, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
-    }
+    // declara todas as variáveis
+    glp_set_col_name(lp, 1, "x1");
+    glp_set_col_kind(lp, 1, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 1, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 2, "x2");
+    glp_set_col_kind(lp, 2, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 2, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 3, "x3");
+    glp_set_col_kind(lp, 3, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 3, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 4, "x4");
+    glp_set_col_kind(lp, 4, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 4, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 5, "x5");
+    glp_set_col_kind(lp, 5, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 5, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 6, "x6");
+    glp_set_col_kind(lp, 6, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 6, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 7, "x7");
+    glp_set_col_kind(lp, 7, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 7, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 8, "x8");
+    glp_set_col_kind(lp, 8, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 8, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 9, "x9");
+    glp_set_col_kind(lp, 9, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 9, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    glp_set_col_name(lp, 10, "x10");
+    glp_set_col_kind(lp, 10, GLP_BV);           // Variável binária
+    glp_set_col_bnds(lp, 10, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    
+     int tam = 10;
+    // for (int i = 0; i < tam; i++)
+    // {
+    //     glp_set_col_name(lp, i + 1, "x" + to_string(i + 1));
+    //     glp_set_col_kind(lp, i + 1, GLP_BV);           // Variável binária
+    //     glp_set_col_bnds(lp, i + 1, GLP_DB, 0.0, 1.0); // Limite inferior = 0, Limite superior = 1
+    // }
 
     // definindo os coeficientes para valorDeVenda
     for (int i = 0; i < tam; i++)
@@ -136,7 +157,7 @@ vector<double> Planejamento::solveGlpk()
     for(int i = 1; i <= 10;i++){
         val[i-1]= encomendas[i-1]->tempoDeFabricacao;
     }
-    glp_set_mat_row(lp, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ind, val);
+    glp_set_mat_row(lp, 1, 10, ind, val);
    
     // otimizar o problema
     glp_simplex(lp, NULL);
