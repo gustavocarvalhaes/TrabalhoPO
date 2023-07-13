@@ -49,6 +49,11 @@ Planejamento::Planejamento(ifstream &arquivoEntrada)
     {
         this->insereEncomenda(i, 0, 0, 0);
     }
+    int j=0;
+    for(Encomenda* encomenda = this->primeiraEncomenda; encomenda!=nullptr; encomenda=encomenda->getProxEncomenda()){
+        cout << "Encomenda: " << j+1 << " " << encomenda->tempoDeFabricacao << " " << encomenda->custoMaterial << " " << encomenda->valorDeVenda << endl;
+        j++;
+    }
 }
 
 void Planejamento::insereEncomenda(int id, int tempoDeFabricacao, float custoMaterial, float valorDeVenda)
