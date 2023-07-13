@@ -35,12 +35,18 @@ int main(int argc, char const *argv[]){
     arquivoSaida.open(argv[2], ios::out | ios::app);
     Planejamento* planejamento = new Planejamento(arquivoEntrada);
 
-    int resultado = new int[planejamento->getNumEncomendas()];
-
-    planejamento->solveGlpk(arquivoSaida);
+    vector<double> resultado = planejamento->solveGlpk(arquivoSaida);
 
     // solveGlpk(readFile(input_file));
-
+    
+    arquivoSaida << "==============================================" << endl;
+    arquivoSaida << "Solução ótima para a base de dados apresentada" << endl;
+    arquivoSaida << "Valor da função objetivo: " << resultado.end() << endl;
+    arquivo << "Valores das variáveis de decisão x" << endl;
+    for(int i=0; i<planejamento->getNumEncomendas(); i++){
+        arquivoSaida << "x" << i+1 << ": " << resultado[i] << endl;
+    }
+    arquivoSaida << "==============================================" << endl;
     return 0;
 }
 

@@ -15,15 +15,16 @@ class Planejamento
         Encomenda* ultimaEncomenda;
         int numEncomendas;
         int diasDeTrabalho;
-    
+
     public:
         //Leitura somente para o trabalho
         Planejamento(ifstream &arquivoEntrada);
         //Destrutor
         ~Planejamento();
-        void insereEncomenda(int id, float custoMaterial, float valorDeVenda, int tempoDeFabricacao);
-        void solveGlpk(ifstream &arquivoSaida);
+        void insereEncomenda(int id, int tempoDeFabricacao, float custoMaterial, float valorDeVenda);
+        vector<double> solveGlpk();
         int getNumEncomendas(){return this->numEncomendas;};
+        int resultado[6];
 };
 
 #endif
