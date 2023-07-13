@@ -29,8 +29,6 @@ int main(int argc, char const *argv[]){
     Planejamento* planejamento = new Planejamento(arquivoEntrada);
     vector<double> resultado = planejamento->solveGlpk();
 
-    // solveGlpk(readFile(input_file));
-    
     arquivoSaida << "==============================================" << endl;
     arquivoSaida << "Solução ótima para a base de dados apresentada" << endl;
     arquivoSaida << "Valor da função objetivo: " << resultado[10] << endl;

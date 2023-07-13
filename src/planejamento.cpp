@@ -38,11 +38,6 @@ Planejamento::Planejamento(ifstream &arquivoEntrada)
     int encomendasVagas;
     encomendasVagas = 10 - numEncomendas;
 
-    // while (arquivoEntrada >> tempoDeFabricacao >> custoMateriais >> valorDeVenda)
-    // {
-    //     this->insereEncomenda(i, tempoDeFabricacao, custoMateriais, valorDeVenda);
-    //     i++;
-    // }
 
     for (int i = 0; i < numEncomendas; i++)
     {
@@ -142,27 +137,13 @@ vector<double> Planejamento::solveGlpk()
         glp_set_obj_coef(lp, i, coef);
     }
 
-    // definindo os coeficientes de custoMaterial
-    // for (int i = 0; i < tam; i++)
-    // {
-    //     glp_set_obj_coef(lp, i, -encomendas[i]->custoMaterial);
-    // }
-    // // Adicionar as restrições
+    // Adicionar as restrições
     glp_add_rows(lp, 1); // Apenas uma restrição
     glp_set_row_name(lp, 1, "restricao1");
 
     // Definir os limites da restrição
     glp_set_row_bnds(lp, 1, GLP_UP, 0.0, this->diasDeTrabalho); // Limite superior é o número de dias previstos para trabalhar
 
-    // // Índices das variáveis envolvidas
-    // int ind[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-    // // Definir os coeficientes das variáveis na restrição
-    // double val[11]; // Coeficientes das variáveis
-    // for (int i = 1; i <= 10; i++)
-    // {
-    //     val[i] = encomendas[i - 1]->tempoDeFabricacao;
-    // }
 
     // Índices das variáveis envolvidas
     int ind[11] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
