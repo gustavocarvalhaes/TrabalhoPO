@@ -97,6 +97,7 @@ vector<double> Planejamento::solveGlpk()
     glp_prob *lp;
     lp = glp_create_prob();
 
+     glp_set_obj_dir(lp, GLP_MAX); // maximizar
     // Definir as variáveis
     glp_add_cols(lp, 10); // declara o número de variáveis
 
