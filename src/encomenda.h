@@ -2,7 +2,10 @@
 #define ENCOMENDA_H_INCLUDED
 #include <fstream>
 #include <vector>
-
+/*
+TRABALHO DE PESQUISA OPERACIONAL - 2023
+ALUNOS: GUSTAVO CAVALHAES  
+*/
 
 using namespace std;
 

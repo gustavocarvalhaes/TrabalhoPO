@@ -5,6 +5,12 @@
 #include <vector>
 
 /*
+TRABALHO DE PESQUISA OPERACIONAL - 2023
+ALUNOS: Gustavo Carvalhaes da Fonseca Ferreira - 202065522B
+        Daniel Freitas Pereira - 202065118A
+*/
+
+/*
     -Para compilar use:
     g++ main.cpp -o <nome_Programa> -lglpk
     -Para executar use:

@@ -27,14 +27,3 @@ x7: 0
 x8: 0
 x9: 1
 ==============================================
-==============================================
-Solução ótima para a base de dados apresentada
-Valor da função objetivo: 5450
-Valores das variáveis de decisão x
-x1: 0
-x2: 1
-x3: 1
-x4: 1
-x5: 0
-x6: 0
-==============================================

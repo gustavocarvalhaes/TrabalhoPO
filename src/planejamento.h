@@ -4,7 +4,11 @@
 #include <fstream>
 #include "encomenda.h"
 #include <vector>
-
+/*
+TRABALHO DE PESQUISA OPERACIONAL - 2023
+ALUNOS: Gustavo Carvalhaes da Fonseca Ferreira - 202065522B
+        Daniel Freitas Pereira - 202065118A
+*/
 
 using namespace std;
 

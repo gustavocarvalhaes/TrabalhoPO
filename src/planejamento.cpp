@@ -5,6 +5,12 @@
 
 using namespace std;
 
+/*
+TRABALHO DE PESQUISA OPERACIONAL - 2023
+ALUNOS: Gustavo Carvalhaes da Fonseca Ferreira - 202065522B
+        Daniel Freitas Pereira - 202065118A
+*/
+
 // padrão arquivo de entrada:
 // dias  numEncomendas
 // tempoFabr custoMateriais ValorDeVenda
